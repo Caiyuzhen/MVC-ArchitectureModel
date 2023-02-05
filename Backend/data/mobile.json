@@ -1,0 +1,37 @@
+[
+	{
+		"id": 1,
+		"brand": "HUAWEI",
+		"model": "Mate 50 Pro",
+		"price": 5000,
+		"spec": "8G + 256G"
+	},
+	{
+		"id": 2,
+		"brand": "Apple",
+		"model": "iPhone 12 Pro Max",
+		"price": 10000,
+		"spec": "8G + 256G"
+	},
+	{
+		"id": 3,
+		"brand": "Samsung",
+		"model": "Galaxy S21 Ultra",
+		"price": 8000,
+		"spec": "8G + 256G"
+	},
+	{
+		"id": 4,
+		"brand": "XiaoMi",
+		"model": "Mi 11 Ultra",
+		"price": 6000,
+		"spec": "8G + 256G"
+	},
+	{
+		"id": 5,
+		"brand": "OPPO",
+		"model": "Find X3 Pro",
+		"price": 7000,
+		"spec": "8G + 256G"
+	}
+]
