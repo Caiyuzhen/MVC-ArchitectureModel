@@ -11,9 +11,14 @@ const app = express()
 app.use(router)
 
 
+
 // 第一步: 🔥设置 view 层引擎（后端的 js 模板引擎）, 然后再在 router 内的 index.js 内去渲染模板！
-app.set('view engine', 'ejs')
-app.use(express.static(join(__dirname, 'public'))) //设置静态目录(前端的静态资源目录)
+app.set('view engine', 'ejs') //应用 ejs 引擎, view engine 是固定的写法!
+
+
+
+//设置静态目录(前端的静态资源目录)
+app.use(express.static(join(__dirname, 'public'))) 
 
 
 

@@ -1,6 +1,7 @@
-<!-- 第二步: 定义 html 模板 -->
-<%- include('../template/top.ejs')' %>
+<!-- 第二步: 定义 html View 视图层 -->
+<%- include('../template/top.ejs') %>
 
-<h1><%= detail %></h1>
+<!-- 👇title 变量由 router 内的 render 内的变量提供 -->
+<h1><%= title %></h1>
 
-<%- include('../template/bottom.ejs')' %>
+<%- include('../template/bottom.ejs') %>
