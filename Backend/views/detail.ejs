@@ -4,4 +4,18 @@
 <!-- 👇title 变量由 router 内的 render 内的变量提供 -->
 <h1><%= title %></h1>
 
+
+<!-- 从 Model 层返回的数据 -->
+<ul>
+	<% mobileData .forEach(item =>{ %> 
+		<li>
+			<!-- 点击跳转到每个手机品牌的详情 -->
+			<a href="http://localhost:8080/detail<%= item.id %> ">
+				<%= item.brand + ' ' + item.model %>
+			</a>
+			<button class="remove-btn" data-id="<%= item.id %>">Remove</button>
+		</li>
+	<% }) %> 
+</ul>
+
 <%- include('../template/bottom.ejs') %>
