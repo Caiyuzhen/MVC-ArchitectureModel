@@ -1,7 +1,28 @@
 <!-- 第二步: 定义 html 模板 -->
 <%- include('../template/top.ejs') %>
 
-<!-- 👇title 变量由 router 内的 render 内的变量提供 -->
-<h1><%= title %></h1>
+
+<!-- 👇mobileListData 变量由 router 内的 listController.listView
+	内的 listView 内的 render 内的变量提供
+	再去调用 detailControllers.js 内的 getMobileDateList 方法
+	从而去执行 allList.js 这个 Model 层内的 getMobileDateList 方法
+ -->
+<h1>Mobile List</h1>
+
+
+<!-- 从 Model 层返回的数据， 【🌟mobileDetailData】 为 allListControllers.js 内的变量名！ -->
+<ul>
+	<% mobileListData.forEach(item =>{ %> 
+		<li>
+			<!-- 每个手机品牌的详情, 统一汇集 -->
+			<a href="http://localhost:8080/detail/<%= item.id %>">
+				<%= item.brand + ' ' + item.model %>
+			</a>
+			<button class="remove-btn" data-id="<%= item.id %>">Remove</button>
+		</li>
+	<% }) %> 
+</ul>
+
+<%- include('../template/mobileFrom.ejs') %> 
 
 <%- include('../template/bottom.ejs') %>

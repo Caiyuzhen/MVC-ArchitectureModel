@@ -1,7 +1,7 @@
 const { Router } = require('express')
 const bodyParser = require('body-parser') //请求体解析中间件
-const listController = require('../controllers/listControllers') // listController 命名空间
-const detailsController = require('../controllers/detailsControllers')
+const listController = require('../controllers/allListControllers') // listController 命名空间
+const detailsController = require('../controllers/detailInfoControllers')
 
 // 实例化路由组件
 const router = new Router()

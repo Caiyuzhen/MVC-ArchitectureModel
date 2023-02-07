@@ -1,21 +1,16 @@
 <!-- 第二步: 定义 html View 视图层 -->
 <%- include('../template/top.ejs') %>
 
-<!-- 👇title 变量由 router 内的 render 内的变量提供 -->
-<h1><%= title %></h1>
-
-
-<!-- 从 Model 层返回的数据 -->
-<ul>
-	<% mobileData .forEach(item =>{ %> 
-		<li>
-			<!-- 点击跳转到每个手机品牌的详情 -->
-			<a href="http://localhost:8080/detail<%= item.id %> ">
-				<%= item.brand + ' ' + item.model %>
-			</a>
-			<button class="remove-btn" data-id="<%= item.id %>">Remove</button>
-		</li>
-	<% }) %> 
-</ul>
+<!-- mobileDetail 变量由 router 内的 detailsView ()
+	去调用 detailInfoControllers.js 内的 listView() 方法
+	从而来 render() 数据
+	进而去调用 detailInfo.js 内的 getMobileDateList 的 Model 层方法
+ -->
+<div>
+	<h1>Brand: <%= mobileDetail.brand %> </h1>
+	<h2>Model: <%= mobileDetail.model %> </h2>
+	<h3>Price: <%= mobileDetail.price %> </h3>
+	<h4>Spec: <%= mobileDetail.spec %> </h4>
+</div>
 
 <%- include('../template/bottom.ejs') %>
