@@ -16,7 +16,6 @@ function detailsView (req, res) {
 		throw new Error('未找到对应的 id');
 	}
 
-
 	// 传入 id, 获取对应 id 的数据,🔥🔥 mobileDetail 记得跟 view 层内的 getMobileDetailInfo 一致！！
 	const MobileDetailInfo = detailModel.getMobileDetailInfo(_id) 
 

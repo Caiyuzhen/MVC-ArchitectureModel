@@ -11,7 +11,8 @@
 
 
 <!-- 从 Model 层返回的数据， 【🌟mobileDetailData】 为 allListControllers.js 内的变量名！ -->
-<ul>
+<!-- 点击 ul 做事件代理，找到 removeBtn 这个事件源 -->
+<ul id="mobileList">
 	<% mobileListData.forEach(item =>{ %> 
 		<li>
 			<!-- 每个手机品牌的详情, 统一汇集 -->
@@ -24,5 +25,9 @@
 </ul>
 
 <%- include('../template/mobileFrom.ejs') %> 
+
+<!-- 👇前提是在 app.js 内设置了 (前端的静态资源目录), 可直接访问 public 内的任何目录 -->
+<script src="https://cdn.bootcdn.net/ajax/libs/axios/1.3.2/axios.min.js"></script>
+<script src="http://localhost:8080/scripts/mobile.js"></script>
 
 <%- include('../template/bottom.ejs') %>

@@ -3,7 +3,7 @@
 const listModel = require('../Models/allList')
 
 
-// 控制器层
+// 控制器层（用来渲染 list）
 function listView (req, res) {
 	//🔥调用 Model 层, 获取 Model 层返回的数据
 	const mobileListData = listModel.getMobileDateList()
@@ -20,6 +20,21 @@ function listView (req, res) {
 	// })
 }
 
+
+
+/// 控制器层（用来删除 list）
+function removeMobile (req, res) {
+	const id = req.body.id //🔥🔥🔥 post 请求的数据（id）要在 body 内去拿, get 请求的数据（id）要在 params 内去拿！
+
+	const resultId = listModel.removeMobileDate(id) //🔥🔥返回要移除的 list id
+
+	res.send(resultId) //🔥🔥🔥 用来向客户端发送响应数据的方法
+}
+
+
+
+
 module.exports = {
-	listView
+	listView,
+	removeMobile
 }

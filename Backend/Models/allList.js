@@ -23,6 +23,28 @@ function getMobileDateList () {
 }
 
 
+
+
+// ⚡️删除对应的列表
+function removeMobileDate (_id) {
+	let mobileDetailData = JSON.parse(readFileSync(resolve(
+		__dirname,
+		'../data/mobile.json'
+	), 'utf8'))
+
+	console.log(mobileDetailData);
+
+	mobileDetailData = mobileDetailData.filter(item => item.id != _id)//重新赋值(过滤掉相等的)
+
+	writeFileSync(resolve(
+		__dirname, 
+		'../data/mobile.json'
+	), JSON.stringify(mobileDetailData)) //🔥🔥🔥写入文件时记得 【JSON.stringify】 转回字符串！！
+
+}
+
+
 module.exports = {
-	getMobileDateList
+	getMobileDateList,
+	removeMobileDate
 }

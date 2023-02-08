@@ -3,11 +3,14 @@ const bodyParser = require('body-parser') //请求体解析中间件
 const listController = require('../controllers/allListControllers') // listController 命名空间
 const detailsController = require('../controllers/detailInfoControllers')
 
-// 实例化路由组件
+// 🔥实例化路由组件
 const router = new Router()
 
+// 🔥处理前端传过来的 json 数据
+const jsonParser = bodyParser.json()
 
-// api 路由 (抽象 Controller 的写法
+
+// api 路由-渲染 list (抽象 Controller 的写法
 router.get('/list', listController.listView)
 
 // api 路由 (不抽象 Controller 的写法)
@@ -20,7 +23,8 @@ router.get('/list', listController.listView)
 // })
 
 
-// api 路由 (抽象 Controller 的写法
+
+// api 路由 -渲染 list 详情 (抽象 Controller 的写法)
 router.get('/detail/:id', detailsController.detailsView)
 
 // api 路由, 【需要传参】
@@ -31,6 +35,11 @@ router.get('/detail/:id', detailsController.detailsView)
 // 		title: 'Detail',  //可以提供一个【 title 变量】给模板
 // 	})
 // })
+
+
+
+// api 路由 - 删除 list (抽象 Controller 的写法)
+router.post('/list/removeMobile', jsonParser, listController.removeMobile) //🔥🔥🔥要先通过 jsonParser 中间键来处理前端传过来的 json 数据！
 
 
 // 🔥🔥需要导出路由！！
