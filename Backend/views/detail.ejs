@@ -1,16 +1,16 @@
 <!-- 第二步: 定义 html View 视图层 -->
 <%- include('../template/top.ejs') %>
 
-<!-- mobileDetail 变量由 router 内的 detailsView ()
+<!-- MobileDetailInfo 变量由 router 内的 detailsView ()
 	去调用 detailInfoControllers.js 内的 listView() 方法
 	从而来 render() 数据
 	进而去调用 detailInfo.js 内的 getMobileDateList 的 Model 层方法
  -->
 <div>
-	<h1>Brand: <%= mobileDetail.brand %> </h1>
-	<h2>Model: <%= mobileDetail.model %> </h2>
-	<h3>Price: <%= mobileDetail.price %> </h3>
-	<h4>Spec: <%= mobileDetail.spec %> </h4>
+	<h1>Brand: <%= MobileDetailInfo.brand %> </h1>
+	<h2>Model: <%= MobileDetailInfo.model %> </h2>
+	<h3>Price: <%= MobileDetailInfo.price %> </h3>
+	<h4>Spec: <%= MobileDetailInfo.spec %> </h4>
 </div>
 
 <%- include('../template/bottom.ejs') %>
