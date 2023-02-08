@@ -73,7 +73,7 @@
 
 
 	// 创建一个新的 list 
-	function createMobileListItem ({brand, model, price, spec}) { //🔥🔥直接在里边解构!
+	function createMobileListItem ({id, brand, model, price, spec}) { //🔥🔥直接在里边解构!
 		const oItem = document.createElement('li')
 		oItem.innerHTML = `
 			<a href="http://localhost:8080/detail/${id}">

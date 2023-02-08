@@ -56,6 +56,7 @@ function addMobile (mobileInfo) {
 	), 'utf8'))
 
 	const id = mobileDetailData[mobileDetailData.length - 1].id + 1 //新的 id = 最后一个 id + 1
+	console.log(id);
 	
 	// 把 controller 层内传入的新增的数据传入到【读取出来的数据】中
 	mobileDetailData.push({
