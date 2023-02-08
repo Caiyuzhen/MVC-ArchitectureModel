@@ -22,13 +22,32 @@ function listView (req, res) {
 
 
 
-/// 控制器层（用来删除 list）
+// 控制器层（用来删除 list）
 function removeMobile (req, res) {
 	const id = req.body.id //🔥🔥🔥 post 请求的数据（id）要在 body 内去拿, get 请求的数据（id）要在 params 内去拿！
 
 	const resultId = listModel.removeMobileDate(id) //🔥🔥返回要移除的 list id
 
-	res.send(resultId) //🔥🔥🔥 用来向客户端发送响应数据的方法
+	res.send(resultId) //🔥🔥🔥 向客户端发送【响应数据】, 最终处理完的数据！
+}
+
+
+
+// 第一步: 控制器层（用来增加 list）
+function addMobile (req, res) {
+	// 🔥🔥🔥🔥从 req.body 提取出 -> 数据 (brand, model, price, spec), 然后传入 Model 层去操作数据！
+	const newMobileInfo = listModel.addMobile({
+		//写法怡：简洁一些
+		...req.body
+
+		// 写法二: 清晰一些
+		// brand: req.body.brand,
+		// model: req.body.model,
+		// price: req.body.price,
+		// spec: req.body.spec
+	})
+
+	res.send(newMobileInfo) //🔥🔥🔥 向客户端发送【响应数据】, 最终处理完的数据！
 }
 
 
@@ -36,5 +55,6 @@ function removeMobile (req, res) {
 
 module.exports = {
 	listView,
-	removeMobile
+	removeMobile,
+	addMobile
 }

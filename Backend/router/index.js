@@ -42,5 +42,9 @@ router.get('/detail/:id', detailsController.detailsView)
 router.post('/list/removeMobile', jsonParser, listController.removeMobile) //🔥🔥🔥要先通过 jsonParser 中间键来处理前端传过来的 json 数据！
 
 
+// api 路由 - 增加 list (抽象 Controller 的写法)
+router.post('/list/addMobile', jsonParser, listController.addMobile)
+
+
 // 🔥🔥需要导出路由！！
 module.exports = router
