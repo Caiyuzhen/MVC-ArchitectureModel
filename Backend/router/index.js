@@ -10,7 +10,6 @@ const router = new Router()
 // api 路由 (抽象 Controller 的写法
 router.get('/list', listController.listView)
 
-
 // api 路由 (不抽象 Controller 的写法)
 // router.get('/list', (req, res) => { 
 // 	// 🚀🚀 req, res 相当于【控制器 controller】, 因为既要获取并提供数据, 又要渲染模板

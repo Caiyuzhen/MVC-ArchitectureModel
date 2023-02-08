@@ -7,7 +7,11 @@ const detailModel = require('../Models/detailInfo')
 function detailsView (req, res) { 
 
 	// 拿到id
-	const _id = req.params.id
+	const id = req.params.id
+	// 🔥🔥🔥把字符串 id 更改为 number 类型的 id！
+	const _id = Number(id)
+
+
 	if(!_id) {
 		throw new Error('未找到对应的 id');
 	}
