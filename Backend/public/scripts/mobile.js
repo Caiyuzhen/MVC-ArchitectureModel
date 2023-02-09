@@ -42,10 +42,10 @@
 	// 新增 list
 	function handleAddBtnClick () {
 		if(
-			oBrand.value === 0 || 
-			oModel.value === 0 || 
-			oPrice.value === 0 || 
-			oSpec.value === 0
+			oBrand.value.length === 0 || 
+			oModel.value.length === 0 || 
+			oPrice.value.length === 0 || 
+			oSpec.value.length === 0
 		) {
 			alert('内容不能为空!')
 			return

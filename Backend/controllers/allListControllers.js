@@ -1,9 +1,12 @@
+// Controller 控制器层（给视图提供数据 + 提供 api 接口）
+
+
 // 所有手机的列表页
 // 从 Models 层引入数据
 const listModel = require('../Models/allList')
 
 
-// 控制器层（用来渲染 list）
+// 控制器层（用来渲染 list, 🔥给视图提供数据）
 function listView (req, res) {
 	//🔥调用 Model 层, 获取 Model 层返回的数据
 	const mobileListData = listModel.getMobileDateList()
