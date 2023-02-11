@@ -18,7 +18,9 @@ export default function (el) {
 			path: '/list',
 			view: ListController, //执行 ListController ()
 			// view: () => `<h1>List</h1>`
-			controllers: [removeListController] //执行 removeListController ()
+			controllers: [
+				removeListController  //执行 removeListController ()
+			]
 		},
 		{
 			//   http://localhost:5173/#/detail
@@ -38,9 +40,8 @@ export default function (el) {
 	// 🌟🌟执行 Controller 层
 	function initController (routeInfo) {
 		console.log(routeInfo)
-		// && 短路运算！ item 其实就是 controller !
+		// && 短路运算！ item 其实就是 controller ! 🔥去遍历上边 routes = [...] 内的 controllers!
 		routeInfo.controllers.length && routeInfo.controllers.forEach(item => item())//🔥如果不等于 0 就去执行所有 controllers 的函数！
-
 	}
 
 
@@ -86,8 +87,8 @@ export default function (el) {
 				// 🔥🔥传递参数（在这个参数中，包含了路由参数和哈希值）
 				$app.innerHTML = await item.view(params) //因为要调用的对象是个异步函数, 是个 promise 对象, 所以要加 await
 
-				// 🔥🔥当上边的传参执行完后, 才能去绑定 DOM 的事件处理函数（Controller 内）！！！
-				initController(item) //🔥传入 routes item!!
+				// 🔥🔥当上边的传参执行完后, DOM 渲染完成, 才能去绑定 DOM 的事件处理函数（Controller 内）！！！
+				initController(item) //🔥传入 routes item!! 包含了路径、路径参数跟路径内包含的 controller 方法！
 			}
 		})
 	}

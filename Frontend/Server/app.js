@@ -31,7 +31,7 @@ app.get('/get_mobile_list', (req, res) => {
 // 获得详情的 api, post 请求, 需要拿到 id
 app.post('/get_mobile_detail', (req, res) => {
 	// 拿到 id
-	let _id = Number(req.body.id) //🔥🔥需要转为数字类型！！  🔥🔥🔥把【字符串】 id 更改为 【Number 类型】的 id！
+	const _id = Number(req.body.id) //🔥🔥需要转为数字类型！！  🔥🔥🔥把【字符串】 id 更改为 【Number 类型】的 id！
 	
 	// 读取数据
 	const mobileData = JSON.parse(readFileSync(resolve(
@@ -61,13 +61,15 @@ app.post('/get_mobile_detail', (req, res) => {
 // 移除列表的 api, post 请求, 需要拿到 _id
 app.post('/remove_mobile_list', (req, res) => {
 	const _id = Number(req.body.id)
-	// console.log(_id)
+	console.log('👋 拿到 id 为：', + _id)
 
 	// 读取
-	const mobileData = JSON.parse(readFileSync(resolve(
+	let mobileData = JSON.parse(readFileSync(resolve(
 		__dirname,
 		'./Data/mobile.json'
-	), 'utf8')).filter(item => item.id !== _id)
+	), 'utf8'))
+
+	mobileData = mobileData.filter(item => item.id !== _id)
 
 	// 写入
 	writeFileSync(resolve(
@@ -75,8 +77,12 @@ app.post('/remove_mobile_list', (req, res) => {
 		'./Data/mobile.json'
 	), JSON.stringify(mobileData))
 
-	// 🔥🔥把数据传回给前端
-	res.send(_id)
+	// 🔥🔥把数据跟状态码传回给前端
+	// res.send(_id)
+	res.status(200).json({
+		status: 200,
+		data: id
+	})
 })
 
 
