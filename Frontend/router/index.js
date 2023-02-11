@@ -1,5 +1,5 @@
 // 统一导入, 可以一次性的导人所有的 controller
-import { HomeController, ListController, DetailController } from "../controllers"
+import { HomeController, ListController, DetailController, removeListController } from "../Controllers/index"
 
 
 export default function (el) {
@@ -11,18 +11,20 @@ export default function (el) {
 			//   http://localhost:5173/#/
 			path: '/',
 			view: HomeController,
+			controllers: []
 		},
 		{
 			//   http://localhost:5173/#/list
 			path: '/list',
-			view: ListController,
+			view: ListController, //执行 ListController ()
 			// view: () => `<h1>List</h1>`
+			controllers: [removeListController] //执行 removeListController ()
 		},
 		{
 			//   http://localhost:5173/#/detail
 			path: '/detail/:id',
 			view: DetailController,
-			// view: () => `<h1>Detail</h1>`
+			controllers: []
 		}
 	]
 
@@ -33,10 +35,19 @@ export default function (el) {
 	}
 
 
-	// 绑定事件
+	// 🌟🌟执行 Controller 层
+	function initController (routeInfo) {
+		console.log(routeInfo)
+		// && 短路运算！ item 其实就是 controller !
+		routeInfo.controllers.length && routeInfo.controllers.forEach(item => item())//🔥如果不等于 0 就去执行所有 controllers 的函数！
+
+	}
+
+
+	// 🌟🌟绑定事件
 	function bindEvent () {
-		window.addEventListener('load', loadView, false) //页面加载时执行
-		window.addEventListener('hashchange', loadView, false) //🔥当哈希值变化时执行
+		window.addEventListener('load', loadPathView, false) //页面加载时执行
+		window.addEventListener('hashchange', loadPathView, false) //🔥当哈希值变化时执行
 	}
 
 
@@ -45,7 +56,7 @@ export default function (el) {
 		🔥🔥🔥🔥核心是拿到路由的参数 params 并传递给页面 view 进行渲染！！
 		因为👆上边的路由 path 留了 detail 跟 :id 的参数占位！！下边是拿到具体的值, 所以是把具体的值给到参数的位置！！然后再渲染！
 	*/
-	function loadView () {
+	function loadPathView () {
 		// location.hash 可以拿到 => #/list
 		// 🔥拿到路由, 处理两种路由路径:     /list       /detail/:id 
 		// routes -> ['detail', 'id', 'name']
@@ -55,7 +66,7 @@ export default function (el) {
 
 
 		// 🔥🔥 将两个数组 routeInfo.params 和 pathInfo.params 中的数据进行映射，并将结果存储在对象 params 中
-		routes.forEach(item => {
+		routes.forEach(async item => {
 			// 👇这里相当于传入假的自己代码写的路由地址, 用来和真实的路由地址进行比较！
 			const routeInfo = getRouteInfo('#' + item.path) //传入👆上面路由定义的 path, 因为👇下面 getRouteInfo() 的方法中是去掉井号的, 所以这里要加上井号！！！
 			// console.log(routeInfo) //返回的是 
@@ -65,15 +76,18 @@ export default function (el) {
 
 				const params = {} //用来组装参数
 				routeInfo.params.map((routeInfoItem, routeInfoIndex) => {
-					pathInfo.params.map((item, index) => {
+					pathInfo.params.map((item, index) => { //item 就是 pathInfo 的 item!!
 						if(routeInfoIndex === index) {
 							params[routeInfoItem] = item //键值对(routeInfoItem 作为键，item 作为值)
 						}
 					})
 				})
 
-				// 传递参数
-				$app.innerHTML = item.view(params)
+				// 🔥🔥传递参数（在这个参数中，包含了路由参数和哈希值）
+				$app.innerHTML = await item.view(params) //因为要调用的对象是个异步函数, 是个 promise 对象, 所以要加 await
+
+				// 🔥🔥当上边的传参执行完后, 才能去绑定 DOM 的事件处理函数（Controller 内）！！！
+				initController(item) //🔥传入 routes item!!
 			}
 		})
 	}

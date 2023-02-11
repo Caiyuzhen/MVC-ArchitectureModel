@@ -15,6 +15,7 @@ app.all('*', (req, res, next) => { //🔥前后端不同源，需要处理跨域
 })
 
 
+
 // 获得列表的 api
 app.get('/get_mobile_list', (req, res) => {
 	const mobileData = JSON.parse(readFileSync(resolve(
@@ -26,9 +27,13 @@ app.get('/get_mobile_list', (req, res) => {
 })
 
 
+
 // 获得详情的 api, post 请求, 需要拿到 id
 app.post('/get_mobile_detail', (req, res) => {
-	const _id = req.body.id
+	// 拿到 id
+	let _id = Number(req.body.id) //🔥🔥需要转为数字类型！！  🔥🔥🔥把【字符串】 id 更改为 【Number 类型】的 id！
+	
+	// 读取数据
 	const mobileData = JSON.parse(readFileSync(resolve(
 		__dirname,
 		'./Data/mobile.json'
@@ -44,6 +49,7 @@ app.post('/get_mobile_detail', (req, res) => {
 	else {
 		res.send({
 			code: 404,
+			id: _id,
 			msg: '没有找到该数据'
 		})
 	}
@@ -51,9 +57,11 @@ app.post('/get_mobile_detail', (req, res) => {
 
 
 
+
 // 移除列表的 api, post 请求, 需要拿到 _id
 app.post('/remove_mobile_list', (req, res) => {
-	const _id = req.body.id
+	const _id = Number(req.body.id)
+	// console.log(_id)
 
 	// 读取
 	const mobileData = JSON.parse(readFileSync(resolve(
@@ -68,7 +76,7 @@ app.post('/remove_mobile_list', (req, res) => {
 	), JSON.stringify(mobileData))
 
 	// 🔥🔥把数据传回给前端
-	res.send(id)
+	res.send(_id)
 })
 
 
