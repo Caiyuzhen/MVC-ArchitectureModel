@@ -17,8 +17,8 @@ export default function ListView (mobileData) {
 }
 
 
-// 🔥渲染每一条 list Item 的函数
-function mobileListItem (mobileInfo) {
+// 🔥渲染每一条 list Item 的函数 (li 里边的具体内容！)
+export function mobileListItem (mobileInfo) {
 
 	const { id, brand, model } = mobileInfo
 

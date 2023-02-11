@@ -16,6 +16,42 @@ app.all('*', (req, res, next) => { //🔥前后端不同源，需要处理跨域
 
 
 
+// 添加列表的 api, post 请求, 需要把 body （id、brand、model、price、spec）添加进数据库里边
+app.post('/add_mobileInfo', (req, res) => {
+	// 读取
+	const mobileData = JSON.parse(readFileSync(resolve(
+		__dirname,
+		'./Data/mobile.json'
+	),'utf8'))
+
+	// 🔥🔥🔥🔥生成新的 id, 名字不能自定义！🔥🔥🔥不然 push 进去的 id 名会有问题！
+	const id = Number(mobileData[mobileData.length - 1].id + 1)
+
+	mobileData.push({
+		id, //👈👈👈记得把 id 放第一位!!! 
+		...req.body //...👈👈👈扩展运算符 要放最后！！！
+	})
+
+	// 写入
+	writeFileSync(resolve(
+		__dirname,
+		'./Data/mobile.json'
+	), JSON.stringify(mobileData))
+
+
+	// 🔥把最新加入的那项返回给前端！
+	const newMobileInfo = mobileData[mobileData.length - 1]
+	// res.send(newMobileInfo)  //🔥🔥会返回一个新的带 id 的最终数据给到前端去做处理!!!
+	res.send({
+		status: 200,
+		id: id,
+		msg: '添加成功',
+		newMobileInfo: newMobileInfo
+	})
+})
+
+
+
 // 获得列表的 api
 app.get('/get_mobile_list', (req, res) => {
 	const mobileData = JSON.parse(readFileSync(resolve(
@@ -81,38 +117,8 @@ app.post('/remove_mobile_list', (req, res) => {
 	// res.send(_id)
 	res.status(200).json({
 		status: 200,
-		data: id
+		data: _id
 	})
-})
-
-
-
-// 添加列表的 api, post 请求, 需要把 body （id、brand、model、price、spec）添加进数据库里边
-app.post('/add_mobileInfo', (req, res) => {
-	// 读取
-	const mobileData = JSON.parse(readFileSync(resolve(
-		__dirname,
-		'./Data/mobile.json'
-	),'utf8'))
-
-	// 生成新的 id
-	const newId = mobileData[mobileData.length - 1].id + 1
-
-	mobileData.push({
-		...req.body,
-		newId
-	})
-
-	// 写入
-	writeFileSync(resolve(
-		__dirname,
-		'./Data/mobile.json'
-	), JSON.stringify(mobileData))
-
-
-	// 🔥把最新加入的那项返回给前端！
-	const newMobileInfo = mobileData[mobileData.length - 1]
-	res.send(newMobileInfo)
 })
 
 

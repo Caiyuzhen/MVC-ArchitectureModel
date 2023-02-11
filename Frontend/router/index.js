@@ -1,5 +1,5 @@
 // 统一导入, 可以一次性的导人所有的 controller
-import { HomeController, ListController, DetailController, removeListController } from "../Controllers/index"
+import { HomeController, ListController, DetailController, removeListController, addMobileListController } from "../Controllers/index"
 
 
 export default function (el) {
@@ -19,7 +19,8 @@ export default function (el) {
 			view: ListController, //执行 ListController ()
 			// view: () => `<h1>List</h1>`
 			controllers: [
-				removeListController  //执行 removeListController ()
+				removeListController,  //执行 removeListController ()
+				addMobileListController
 			]
 		},
 		{
